@@ -1,33 +1,26 @@
 n = int(input())
 q = input()
-ango = {'000000':'A', '001111':'B', '010011': 'C', '011100':'D',
-'100110':'E', '101001':'F', '110101':'G', '111010':'H'}
-okay = []
+
+promise = ['000000', '001111', '010011', '011100',
+'100110', '101001', '110101', '111010']
+
 def bimil(n, q):
+    okay = ''
     for i in range(n):
-        tmp =q[6*i:6*(i+1)]
-        if tmp in ango.keys():
-            okay.append(ango[tmp])
-        else:
-            for a in ango.keys():
-                cnt = [0]*6
-                for j in range(len(a)):
-                    if tmp[j]!=a[j]:
-                        cnt[j]=1
-                if sum(cnt) == 1:
-                    okay.append(ango[a])
-                    break
+        notokay = 0
+        tmp = q[6*i:6*(i+1)]
+        for p in range(len(promise)):
+            cnt = 0
+            for t in range(len(tmp)):
+                if tmp[t] == promise[p][t]:
+                    cnt+=1
+            if cnt>=5:
+                okay+=chr(p+65)
+                break
             else:
-                okay.append(i)
+                notokay+=1
+        if notokay==8:
+            return i+1
     return okay
-dap = bimil(n, q)
-result = []
-for d in dap:
-    try:
-        if d.isalpha():
-            result.append(d)
-    except:
-        print(d+1)
-        break
-else:
-    print(''.join(result))
+
+print(bimil(n,q))
