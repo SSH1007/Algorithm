@@ -1,11 +1,10 @@
 for _ in range(int(input())):
     A,B = map(int,input().split())
-    arr = []
-    while A>0:
-        arr.append(A)
-        A//=2
-    while B>0:
-        if B in arr:
+    while 1:
+        if A>B:
+            A//=2
+        elif A<B:
+            B//=2
+        else:
+            print(B*10)
             break
-        B//=2
-    print(B*10)
