@@ -1,0 +1,5 @@
+T = input()
+idx = T.index('(')
+l =T[:idx].count('@')
+r = T[idx:].count('@')
+print(l,r)
