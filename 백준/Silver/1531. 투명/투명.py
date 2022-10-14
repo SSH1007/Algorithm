@@ -1,13 +1,13 @@
+canvas = [[0]*100 for _ in range(100)]
 N, M = map(int, input().split())
-li = [[0]*100 for _ in range(100)]
 for _ in range(N):
-    x1, y1, x2, y2 = map(int, input().split())
-    for i in range(x1, x2+1):
-        for j in range(y1, y2+1):
-            li[i-1][j-1] += 1
-cnt = 0
-for i in range(100):
-    for j in range(100):
-        if li[i][j] > M:
-            cnt += 1
-print(cnt)
+    x1,y1, x2,y2 = map(int, input().split())
+    for x in range(x1-1, x2):
+        for y in range(y1-1,y2):
+            canvas[x][y]+=1
+dap = 0
+for cvs in canvas:
+    for c in cvs:
+        if c>M:
+            dap+=1
+print(dap)
