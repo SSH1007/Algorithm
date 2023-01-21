@@ -1,28 +1,28 @@
-N, C, R = map(int, input().split())
+# 좌표평면
+# 2 1
+# 3 4
+N, r, c = map(int, input().split())
+std = 0
 dap = 0
-def z(n,c,r):
-    global dap
-    # 사분면 판단 기중
-    std = 2**(n-1)
-    if n == 1:
-        # Z 순서에 맞도록 숫자를 더함 
-        dap += (2*(C%2)+(R%2))
-        return 
+while N>0:
+    # 사분면 기준은 2의 N-1 승
+    std = 2**(N-1)
     # 2사분면
-    if c<std and r<std:
+    if r<std and c<std:
         pass
-        z(n-1,c,r)
-    # 3사분면
-    elif c>=std and r<std:
-        dap+=((std**2)*2)
-        z(n-1,c-std,r)
     # 1사분면
-    elif c<std and r>=std:
-        dap+=(std**2)
-        z(n-1,c,r-std)
-    # 4사분면
-    elif c>=std and r>=std:
-        dap+=((std**2)*3)
-        z(n-1,c-std,r-std)
-z(N, C, R)
+    if r<std and c>=std:
+        dap+= 2**(N-1)*2**(N-1)
+        c-=std
+    # 3사분면
+    if r>=std and c<std:
+        dap+= 2**(N-1)*2**(N-1)*2
+        r-=std
+    # 4사분면 
+    if r>=std and c>=std:
+        dap+= 2**(N-1)*2**(N-1)*3
+        r-=std
+        c-=std
+
+    N-=1
 print(dap)
