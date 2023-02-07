@@ -1,11 +1,5 @@
-n = int(input())
-a = [4]
-f = 2
-b = 1
-sum = 0
-for i in range(1, 16):
-    f += b
-    sum = f ** 2
-    a.append(sum)
-    b = b * 2
-print(a[n])
+N = int(input())
+dap = 3
+for n in range(1,N):
+    dap+=2**n
+print(dap**2)
