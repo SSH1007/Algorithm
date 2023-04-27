@@ -1,8 +1,10 @@
 def fun():
-    N = int(input())
+    import sys
+    input = sys.stdin.readline
+    N = int(input().rstrip())
     dic = dict()
     for _ in range(N):
-        a, b = input().split()
+        a, b = input().rstrip().split()
         if b == 'enter':
             dic[a] = 1
         else:
