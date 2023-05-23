@@ -1,14 +1,16 @@
-# 1	2 3 4 5	6 7	8 9 10
-# 1	2 3	1 2	3 4	2 1 2
-# 자신(n)보다 같거나 작은 제곱수 i를 뺀 값 j(=> n-i)가 있다면 dp[n]에 dp[j]+1을 더하면 되는 구조
 import sys
 input = sys.stdin.readline
+from itertools import combinations_with_replacement
 n = int(input().rstrip())
-dp = [0,1]
-for i in range(2, n+1):
-    minCnt = 1e9
-    # n에서 제곱수들을 빼가면서 dp를 갱신
-    for j in range(1, int(i**0.5)+1):
-        minCnt = min(minCnt, dp[i-(j**2)])
-    dp.append(minCnt+1)
-print(dp[n])
+# 자연수를 넷 혹은 그 이하의 제곱수 합으로 나타내자
+jegobs = [i*i for i in range(1, int(n**0.5)+1)]
+jegobhabs = [sum(i) for i in combinations_with_replacement(jegobs, 2)]
+jegobhabhabs = [sum(i) for i in combinations_with_replacement(jegobs, 3)]
+if n in jegobs:
+    print(1)
+elif n in jegobhabs:
+    print(2)
+elif n in jegobhabhabs:
+    print(3)
+else:
+    print(4)
