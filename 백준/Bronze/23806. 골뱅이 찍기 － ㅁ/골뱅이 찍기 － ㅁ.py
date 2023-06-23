@@ -2,18 +2,8 @@ import sys
 input = sys.stdin.readline
 N = int(input().rstrip())
 for i in range(N):
-    for j in range(N*5):
-        print('@', end='')
-    print()
+    print('@'*(N*5))
 for i in range(N*3):
-    for j in range(N):
-        print('@', end='')
-    for _ in range(N*3):
-        print(' ', end='')
-    for j in range(N):
-        print('@', end='')
-    print()
+    print('@'*N + ' '*(N*3) + '@'*N)
 for i in range(N):
-    for j in range(N*5):
-        print('@', end='')
-    print()
+    print('@'*(N*5))
