@@ -1,20 +1,14 @@
 import sys
 input = sys.stdin.readline
 
-from collections import deque
 A, K = map(int, input().rstrip().split())
-graph = [[] for _ in range(K+1)]
-visited = [0]*(K+1)
 dap = 0
-
-q = deque([A])
-while q:
-    x = q.popleft()
-    if x == K:
+while 1:
+    if K==A:
+        print(dap)
         break
-    for node in [x+1, x*2]:
-        if node <= K and not visited[node]:
-            q.append(node)
-            visited[node] = visited[x]+1
-
-print(visited[K])
+    if K%2==0 and K>=A*2:
+        K//=2
+    else:
+        K-=1
+    dap+=1
