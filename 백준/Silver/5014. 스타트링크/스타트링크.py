@@ -9,11 +9,12 @@ while q:
     if floor == G:
         print(move[G])
         break
-    for go in [U, -D]:
-        if floor+go > 0 and floor+go <= F:
-            if visited[floor+go] == False:
-                visited[floor+go] = True
-                move[floor+go] = move[floor]+1
-                q.append(floor+go)
+    for go in [floor+U, floor-D]:
+        if go > F or go <= 0:
+            continue
+        if visited[go] == False:
+            visited[go] = True
+            move[go] = move[floor]+1
+            q.append(go)
 else:
     print('use the stairs')
