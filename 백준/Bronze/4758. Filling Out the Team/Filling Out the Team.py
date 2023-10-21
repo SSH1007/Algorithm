@@ -1,6 +1,5 @@
 while 1:
-    a,b,c=input().split()
-    a,b,c=float(a),int(b),int(c)
+    a,b,c = map(float, input().split()) 
     if a==0 and b==0 and c==0: break
     tmp=[]
     if a<=4.5 and b>= 150 and c>=200: 
