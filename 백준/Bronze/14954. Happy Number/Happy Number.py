@@ -1,19 +1,12 @@
 N = input()
-l = [str(N)]
-
-
-def happy(N):
-    if N == '1':
-        print('HAPPY')
-        return
-    v = 0
+while 1:
+    tmp = 0
     for n in N:
-        v += int(n)**2
-    if str(v) in l:
+        tmp += int(n)**2
+    N = str(tmp)
+    if tmp == 1:
+        print('HAPPY')
+        break
+    elif tmp == 4:
         print('UNHAPPY')
-        return
-    l.append(str(v))
-    happy(str(v))
-
-
-happy(N)
+        break
