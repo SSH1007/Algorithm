@@ -1,7 +1,10 @@
-T = int(input())
+import sys
+input = sys.stdin.readline
+T = int(input().rstrip())
 for _ in range(T):
-    a, b = map(int, input().split())
-    S = input()
-    for s in S:
-        print(chr((a*(ord(s)-65)+b) % 26 + 65), end='')
-    print()
+    a, b = map(int, input().rstrip().split())
+    S = list(input().rstrip())
+    for s in range(len(S)):
+        num = (a*(ord(S[s])-65)+b)%26
+        S[s] = chr(num+65)
+    print(''.join(S))
