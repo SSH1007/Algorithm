@@ -1,10 +1,12 @@
 def isprime(n):
-    prime = True
-    for i in range(2, int(n**0.5)+1):
+    if n <= 1 or n%2 == 0:
+        if n == 2:
+            return True
+        return False
+    for i in range(3, int(n**0.5)+1, 2):
         if n%i == 0:
-            prime = False
-            break
-    return prime
+            return False
+    return True
 
 
 import sys
@@ -12,12 +14,6 @@ input = sys.stdin.readline
 t = int(input().rstrip())
 for _ in range(t):
     n = int(input().rstrip())
-    if n < 3:
-        print(2)
-    else:
-        while 1:
-            if isprime(n):
-                print(n)
-                break
-            else:
-                n += 1
+    while not isprime(n):
+        n += 1
+    print(n)
