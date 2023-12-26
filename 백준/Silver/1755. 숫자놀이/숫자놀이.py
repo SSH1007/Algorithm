@@ -11,6 +11,6 @@ for i in range(M, N+1):
     lst.append((i, eng))
 lst.sort(key= lambda x: x[1])
 for i in range(len(lst)):
-    if i % 10 == 0 and i != 0:
-        print()
     print(lst[i][0], end=' ')
+    if i % 10 == 9:
+        print()
