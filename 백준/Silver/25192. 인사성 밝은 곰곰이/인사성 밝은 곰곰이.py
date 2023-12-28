@@ -1,14 +1,13 @@
-N = int(input())
+import sys
+input = sys.stdin.readline
+N = int(input().rstrip())
 dap = 0
 dic = dict()
 for _ in range(N):
-    chat = input()
+    chat = input().rstrip()
     if chat == 'ENTER':
         dic = dict()
-    else:
-        if chat in dic:
-            continue
-        else:
-            dic[chat] = 1
-            dap += 1
+    elif chat not in dic:
+        dic[chat] = 1
+        dap += 1
 print(dap)
