@@ -1,9 +1,11 @@
-T = int(input())
+import sys
+input = sys.stdin.readline
+T = int(input().rstrip())
 for _ in range(T):
     N = int(input())
-    first = list(input().split())
-    second = list(input().split())
-    cipher = list(input().split())
+    first = list(input().rstrip().split())
+    second = list(input().rstrip().split())
+    cipher = list(input().rstrip().split())
     dic = dict()
     for n in range(N):
         dic[n] = first.index(second[n])
