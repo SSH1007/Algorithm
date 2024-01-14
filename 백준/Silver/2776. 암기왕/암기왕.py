@@ -1,14 +1,14 @@
+import sys
+input = sys.stdin.readline
 T = int(input())
 for _ in range(T):
     N = int(input())
-    Nlst = list(map(int, input().split()))
-    Ndic = dict()
-    for l in Nlst:
-        Ndic[l] = 1
+    Nset = set(list(map(int, input().split())))
+
     M = int(input())
     Mlst = list(map(int, input().split()))
     for l in Mlst:
-        try:
-            print(Ndic[l])
-        except:
+        if l in Nset:
+            print(1)
+        else:
             print(0)
