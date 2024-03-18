@@ -1,14 +1,15 @@
+import heapq
 import sys
 input = sys.stdin.readline
 n = int(input().rstrip())
 sack = []
 for _ in range(n):
-    a = list(map(int, input().rstrip().split()))
-    if a[0] == 0:
+    lst = list(map(int, input().rstrip().split()))
+    if lst[0] == 0:
         if sack:
-            print(sack.pop())
+            print(heapq.heappop(sack)[1])
         else:
             print(-1)
     else:
-        sack.extend(a[1:])
-        sack.sort()
+        for l in lst[1:]:
+            heapq.heappush(sack, (-l, l))
