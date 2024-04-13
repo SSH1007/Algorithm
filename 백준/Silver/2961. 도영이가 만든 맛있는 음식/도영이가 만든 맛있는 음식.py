@@ -8,8 +8,8 @@ dap = 1000000001
 for i in range(1, 1<<N):
     s, b = 1, 0
     for j in range(N):
-        if bin(i)[2:].zfill(N)[j] == '1':
-            s *= ingredient[int(j)][0]
-            b += ingredient[int(j)][1]
+        if i & (1<<j):
+            s *= ingredient[j][0]
+            b += ingredient[j][1]
     dap = min(dap, abs(s-b))
 print(dap)
