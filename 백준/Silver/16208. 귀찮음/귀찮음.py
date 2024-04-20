@@ -3,6 +3,8 @@ input = sys.stdin.readline
 N = int(input().rstrip())
 lst = list(map(int, input().rstrip().split()))
 dap = 0
+hap = sum(lst)
 for i in range(N):
-    dap += lst[i]*sum(lst[i+1:])
+    hap -= lst[i]
+    dap += lst[i]*hap
 print(dap)
