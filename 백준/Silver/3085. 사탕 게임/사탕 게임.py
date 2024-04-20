@@ -1,10 +1,8 @@
 import sys
 input = sys.stdin.readline
 N = int(input().rstrip())
-board = [list(input().rstrip()) for _ in range(N)]
-dr = [0, 1, 0, -1]
-dc = [1, 0, -1, 0]
-answer = 0
+board = [list(input().rstrip())+['.'] for _ in range(N)] + [['.']*(N+1)]
+board_t = list(map(list, zip(*board)))
 
 
 def long(lst_):
@@ -24,35 +22,19 @@ def long(lst_):
     return dap
 
 
-def f(k, r, c, nr, nc):
+def f(lst):
     dap = 0
-    if k%2: # 상하교환
-        tmp = []
-        for n in range(N):
-            tmp.append(board[n][c])
-        dap = max(dap, long(tmp))
-        dap = max(dap, long(board[r]))
-        dap = max(dap, long(board[nr]))
-    else:   # 좌우교환
-        tmp = []
-        for n in range(N):
-            tmp.append(board[n][c])
-        dap = max(dap, long(tmp))
-        tmp = []
-        for n in range(N):
-            tmp.append(board[n][nc])
-        dap = max(dap, long(tmp))
-        dap = max(dap, long(board[r]))
+    for i in range(N-1):
+        for j in range(N):
+            lst[i][j], lst[i][j+1] = lst[i][j+1], lst[i][j]
+            dap = max(dap, long(lst[i]))
+            lst[i][j], lst[i][j+1] = lst[i][j+1], lst[i][j]
+
+            lst[i][j], lst[i+1][j] = lst[i+1][j], lst[i][j]
+            dap = max(dap, long(lst[i]), long(lst[i+1]))
+            lst[i][j], lst[i+1][j] = lst[i+1][j], lst[i][j]
     return dap
 
 
-for i in range(N):
-    for j in range(N):
-        for k in range(4):
-            nr = i + dr[k]
-            nc = j + dc[k]
-            if 0 <= nr < N and 0 <= nc < N:
-                board[i][j], board[nr][nc] = board[nr][nc], board[i][j]
-                answer = max(answer, f(k, i, j, nr, nc))
-                board[i][j], board[nr][nc] = board[nr][nc], board[i][j]
+answer = max(f(board), f(board_t))
 print(answer)
