@@ -2,6 +2,7 @@ import sys
 input = sys.stdin.readline
 sys.setrecursionlimit(10**6)
 N, M, R = map(int, input().rstrip().split())
+dap = [0]*(N+1)
 visited = [0]*(N+1)
 lst = [[] for _ in range(N+1)]
 for _ in range(M):
@@ -15,13 +16,14 @@ cnt = 1
 
 def dfs(r):
     global cnt
-    visited[r] = cnt
+    dap[r] = cnt
+    cnt += 1
+    visited[r] = 1
     for node in lst[r]:
         if not visited[node]:
-            cnt += 1
             dfs(node)
     return
 
 
 dfs(R)
-print(*visited[1:], sep='\n')
+print(*dap[1:], sep='\n')
