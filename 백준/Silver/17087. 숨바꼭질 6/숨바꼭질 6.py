@@ -10,10 +10,10 @@ def uh(a, b):
 
 N, S = map(int, input().rstrip().split())
 As = sorted(list(map(int, input().rstrip().split())), reverse=True)
-dap = 0
 if N == 1:
     print(abs(As[0]-S))
 else:
+    dap = abs(As[0]-S)
     for i in range(1, N):
-        dap = uh(dap, uh(abs(As[i-1]-S), abs(As[i]-S)))
+        dap = uh(dap, abs(As[i]-S))
     print(dap)
