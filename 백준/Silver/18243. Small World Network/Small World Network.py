@@ -1,36 +1,36 @@
 import sys
 input = sys.stdin.readline
+from collections import deque
 N, K = map(int, input().rstrip().split())
-inf = float(1e9)
-graph = [[inf]*N for _ in range(N)]
+graph = [[]*(N+1) for _ in range(N+1)]
 for _ in range(K):
     A, B = map(int, input().rstrip().split())
-    graph[A-1][B-1] = 1
-    graph[B-1][A-1] = 1
+    graph[A].append(B)
+    graph[B].append(A)
+dap = True
 
-for k in range(N):
-    for s in range(N):
-        for e in range(N):
-            if s == e:
-                continue
-            if graph[s][e] or graph[s][k]+graph[k][e]:
-                graph[s][e] = min(graph[s][e], graph[s][k]+graph[k][e])
 
-for i in range(N):
-    for j in range(N):
-        if graph[i][j] == inf:
-            graph[i][j] = 0
+def BFS(start, cnt):
+    visited = [0]*(N+1)
+    q = deque([(start, cnt)])
+    visited[start] = 1
+    while q:
+        s, c = q.popleft()
+        if c > 6:
+            return False
+        for node in graph[s]:
+            if not visited[node]:
+                visited[node] = 1
+                q.append((node, c+1))
+    if sum(visited) != N:
+        return False
+    return True
+
 
 # 모든 사람이 연결이 되지 않거나, 연결이 되어도 6단계를 초과하면 Big World!
-for g in graph:
-    # 다른 사람들과 연결 여부
-    connect = sum([1 for i in g if i])
-    if connect != N-1:
-        print('Big World!')
-        break
-    level = max(g)
-    if level > 6:
-        print('Big World!')
-        break
-else:
+for n in range(1, N+1):
+    dap = BFS(n, 0)
+if dap:
     print('Small World!')
+else:
+    print('Big World!')
