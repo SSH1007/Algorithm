@@ -16,4 +16,5 @@ for _ in range(N):
                 L.pop()
         else:
             L.append(c)
-    print(*L+R[::-1], sep='')
+    R = list(reversed(R))
+    print(''.join(L+R))
