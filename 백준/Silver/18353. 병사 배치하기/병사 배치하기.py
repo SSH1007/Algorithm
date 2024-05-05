@@ -1,10 +1,14 @@
+# 마이너스로 증가하는 수열
 import sys
 input = sys.stdin.readline
+from bisect import bisect_left
 N = int(input().rstrip())
 soldier = list(map(int, input().rstrip().split()))
-dp = [1]*N
+dp = [-soldier[0]]
 for i in range(1, N):
-    for j in range(i):
-        if soldier[j] > soldier[i]:
-            dp[i] = max(dp[i], dp[j]+1)
-print(N-max(dp))
+    if -soldier[i] > dp[-1]:
+        dp.append(-soldier[i])
+    else:
+        idx = bisect_left(dp, -soldier[i])
+        dp[idx] = -soldier[i]
+print(N-len(dp))
