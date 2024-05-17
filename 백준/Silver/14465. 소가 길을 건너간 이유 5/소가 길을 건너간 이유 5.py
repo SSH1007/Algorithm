@@ -1,22 +1,17 @@
 import sys
 input = sys.stdin.readline
 N, K, B = map(int, input().rstrip().split())
-road = [1 for _ in range(1, N+1)]
-broken = set()
+road = [0 for _ in range(1, N+1)]
 for _ in range(B):
-    b = int(input().rstrip())
-    broken.add(b)
-    road[b-1] = 0
+    road[int(input().rstrip())-1] = 1
 
 s, e = 0, K
-d = sum(road[s:e])
-dap = K-d
-while e <= N:
-    d -= road[s]
-    s += 1
-    if e >= N:
-        break
-    d += road[e]
-    e += 1
-    dap = min(dap, K-d)
+dap = sum(road[s:e])
+tmp = dap
+for i in range(1, N-K+1):
+    if road[i-1]:
+        tmp -= 1
+    if road[i+K-1]:
+        tmp += 1
+    dap = min(dap, tmp)
 print(dap)
