@@ -12,17 +12,23 @@ for _ in range(N):
 # 델타 탐색
 dr = [0, 1, 0, -1]
 dc = [1, 0, -1, 0]
-q = deque([(500, 500)])
-graph[500][500] = 1
-while q:
-    r, c = q.popleft()
-    for i in range(4):
-        nr = r + dr[i]
-        nc = c + dc[i]
-        if nr == Y and nc == X:
-            print(graph[r][c])
-            exit(0)
-        if 0 <= nr < 1001 and 0 <= nc <= 1001:
-            if not graph[nr][nc]:
-                q.append((nr, nc))
-                graph[nr][nc] = graph[r][c] + 1
+
+
+def BFS():
+    q = deque([(500, 500)])
+    graph[500][500] = 1
+    while q:
+        r, c = q.popleft()
+        for i in range(4):
+            nr = r + dr[i]
+            nc = c + dc[i]
+            if nr == Y and nc == X:
+                print(graph[r][c])
+                return
+            if 0 <= nr < 1001 and 0 <= nc <= 1001:
+                if not graph[nr][nc]:
+                    q.append((nr, nc))
+                    graph[nr][nc] = graph[r][c] + 1
+
+
+BFS()
