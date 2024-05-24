@@ -2,13 +2,17 @@ import sys
 input = sys.stdin.readline
 N = int(input().rstrip())
 S = list(map(int, input().rstrip().split()))
-from itertools import combinations
-dp = [0]*(sum(S)+2)
-for i in range(1, N+1):
-    C = list(combinations(S, i))
-    for c in C:
-        dp[sum(c)] = 1
-for i in range(1, sum(S)+2):
-    if not dp[i]:
-        print(i)
-        break
+visited = [0]*(sum(S)+2)
+
+
+def DFS(idx, hap):
+    if idx == N:
+        return
+    hap += S[idx]
+    visited[hap] = 1
+    DFS(idx+1, hap-S[idx])
+    DFS(idx+1, hap)
+
+
+DFS(0, 0)
+print(visited[1:].index(0)+1)
