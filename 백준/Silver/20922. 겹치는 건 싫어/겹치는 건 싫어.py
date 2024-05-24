@@ -5,14 +5,20 @@ from collections import defaultdict
 N, K = map(int, input().rstrip().split())
 As = list(map(int, input().rstrip().split()))
 dd = defaultdict(int)
-s, e = 0, 0
-dap = 0
-while e < N:
-    if dd[As[e]] < K:
-        dd[As[e]] += 1
-        e += 1
-    else:
-        dd[As[s]] -= 1
-        s += 1
-    dap = max(dap, e-s)
-print(dap)
+
+
+def f():
+    s, e = 0, 0
+    dap = 0
+    while e < N:
+        if dd[As[e]] < K:
+            dd[As[e]] += 1
+            e += 1
+        else:
+            dd[As[s]] -= 1
+            s += 1
+        dap = max(dap, e-s)
+    return dap
+
+
+print(f())
