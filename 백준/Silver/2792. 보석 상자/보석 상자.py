@@ -7,13 +7,6 @@ for _ in range(M):
     gem.append(int(input().rstrip()))
 
 
-def ceil(x):
-    if x % 1:
-        return int(x)+1
-    else:
-        return int(x)
-
-
 def fn(x):
     if x == 0:
         return False
@@ -21,11 +14,11 @@ def fn(x):
     # True를 반환하는 것으로 검사범위를 x보다 작은 쪽으로 설정
     cnt = 0
     for g in gem:
-        cnt += ceil(g/x)
-    if cnt <= N:
-        return True
-    else:
-        return False
+        if (g/x) % 1:
+            cnt += (g//x)+1
+        else:
+            cnt += (g//x)
+    return cnt <= N
 
 
 l, r = 0, max(gem)
