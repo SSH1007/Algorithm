@@ -8,8 +8,6 @@ for _ in range(M):
 
 
 def fn(x):
-    if x == 0:
-        return False
     # 최소값을 찾는 것이므로 매개변수가 조건을 만족하면
     # True를 반환하는 것으로 검사범위를 x보다 작은 쪽으로 설정
     cnt = 0
@@ -21,7 +19,7 @@ def fn(x):
     return cnt <= N
 
 
-l, r = 0, max(gem)
+l, r = 1, max(gem)
 dap = int(1e9)
 while l <= r:
     # 매개변수
