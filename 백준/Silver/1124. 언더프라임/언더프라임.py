@@ -1,36 +1,29 @@
-from collections import defaultdict
-
-def f(n, prime):
-    idx = 0
-    mom = list(prime.keys())[:65]
-    cnt = 0
-    while n != 1:
-        if idx >= 65:
-            return cnt+1
-        if n%mom[idx] == 0:
-            n//=mom[idx]
-            cnt += 1
-        else:
-            idx += 1
-    return cnt
-
-
 def main():
-    Max = int(100000**0.5)
-    lst = [1]*Max
-    for i in range(2, Max):
-        if lst[i]:
-           for j in range(i*2, Max, i):
-               lst[j] = 0
-    prime = defaultdict(int)
-    for i in range(2, Max):
-        if lst[i]:
-            prime[i] = 1
-    dap = 0
+
+    def isPrime(n):
+        for i in range(2, int(n**0.5)+1):
+            if n % i == 0:
+                # ex) 12 % 2 == 0이면 12의 소인수는 12//2인 6의 소인수의 개수 + 1
+                cnt[n] = cnt[n//i] + 1
+                # 1과 자기 자신이 아닌 다른 수로 나눠지므로 소수 아님
+                return 0
+        # 소수는 소인수분해 후 약수의 개수 1
+        cnt[n] = 1
+        # 소수 맞음
+        return 1
+
+
     A, B = map(int, input().split())
-    for C in range(A, B+1):
-        if prime[f(C, prime)]:
-            dap += 1
+    # 소인수분해 시 소수 개수를 담는 리스트
+    cnt = [0]*(B+1)
+    # 소수 판정 리스트
+    prime = [0]*(B+1)
+
+    for i in range(2, B+1):
+        prime[i] = isPrime(i)
+    dap = 0
+    for i in range(A, B+1):
+        dap += prime[cnt[i]]
     print(dap)
 
 
