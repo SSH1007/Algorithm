@@ -18,8 +18,4 @@ for n in Ns:
 for m in Ms:
     B*=m
 
-dap = str(GCD(A, B))
-if len(dap) > 9:
-    print(dap[len(dap)-9:])
-else:
-    print(dap)
+print('%s'%(str(GCD(A, B))[-9:]))
