@@ -1,32 +1,27 @@
 import sys
 input = sys.stdin.readline
-from collections import deque
 
 
 def main():
     N, M = map(int, input().rstrip().split())
-    trains = [deque([0]*20) for _ in range(N)]
+    trains = [0 for _ in range(N)]
     for _ in range(M):
         info = list(map(int, input().rstrip().split()))
-        command, trainIdx = info[0], info[1]-1
-        if len(info) > 2:
-            seatNum = info[2]-1
-        if command == 1:
-            trains[trainIdx][seatNum] = 1
-        elif command == 2:
-            trains[trainIdx][seatNum] = 0
-        elif command == 3:
-            trains[trainIdx].rotate(1)
-            trains[trainIdx][0] = 0
+        if info[0] == 1:
+            trains[info[1]-1] |= (1 << (info[2]-1))
+        elif info[0] == 2:
+            trains[info[1]-1] &= ~(1 << (info[2]-1))
+        elif info[0] == 3:
+            trains[info[1]-1] <<= 1
+            trains[info[1]-1] &= ~(1 << 20)
         else:
-            trains[trainIdx].rotate(-1)
-            trains[trainIdx][19] = 0
+            trains[info[1]-1] >>= 1
 
-    lst = []
+    dap = []
     for t in trains:
-        if t not in lst:
-            lst.append(t)
-    print(len(lst))
+        if t not in dap:
+            dap.append(t)
+    print(len(dap))
 
 
 if __name__ == '__main__':
