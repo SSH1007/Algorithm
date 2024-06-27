@@ -14,13 +14,9 @@ def main():
         if 0 <= abs(Q) < v:
             v = abs(Q)
             a_s, a_e = s, e
-            if Q < 0:
-                s += 1
-            else:
-                e -= 1
-        elif Q < 0:
+        if Q < 0:
             s += 1
-        elif Q >= v:
+        else:
             e -= 1
     print(potions[a_s], potions[a_e])
 
