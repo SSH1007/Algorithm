@@ -4,7 +4,12 @@ input = sys.stdin.readline
 
 
 def main():
+    # 학생 수가 100,000명, 응답한 시각의 범위는 1~1,000,000이므로
+    # 평소에 하던 대로 범위를 +1로 채운다면
+    # 최악의 경우, 100,000 * 1,000,000번 작업해야한다. 
+    # 따라서 imos법으로 시간복잡도를 줄인다!
     imos = [0]*1000002
+    # ^ 종료 시각이 E+1이므로 시간 범위도 +1 증가
     N = int(input().rstrip())
     for _ in range(N):
         S, E = map(int, input().rstrip().split())
