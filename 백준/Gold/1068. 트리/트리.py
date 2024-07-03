@@ -10,7 +10,6 @@ parents = list(map(int, input().rstrip().split()))
 toDelete = int(input().rstrip())
 
 tree = [[] for _ in range(N)]
-# print(tree)
 root = 0
 for n in range(N):
     if parents[n] >= 0:
@@ -18,7 +17,6 @@ for n in range(N):
     else:
         root = n
 tree[toDelete] = []
-# print(tree, root)
 dap = 0
 
 
@@ -27,8 +25,8 @@ def DFS(start):
     if start == toDelete:
         return
     if not tree[start]:
-        # print(start, tree[start])
         dap += 1
+    # 리프 노드를 지워 자기 자신이 리프 노드가 되었을 경우,
     elif len(tree[start]) == 1 and tree[start][0] == toDelete:
         dap += 1
     for node in tree[start]:
