@@ -34,8 +34,16 @@ def main():
     for r in range(R):
         for c in range(C):
             if maps[r][c] == 'L':
-                visited = [[0]*C for _ in range(R)]
-                dap = max(dap, BFS(r, c))
+                adj = 0
+                for i in range(4):
+                    nr = r + dr[i]
+                    nc = c + dc[i]
+                    if 0 <= nr < R and 0 <= nc < C:
+                        if maps[nr][nc] == 'L':
+                            adj += 1
+                if adj <= 2:
+                    visited = [[0]*C for _ in range(R)]
+                    dap = max(dap, BFS(r, c))
     print(dap-1)
 
 
