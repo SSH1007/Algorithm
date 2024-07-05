@@ -1,12 +1,19 @@
-from itertools import combinations
 N = int(input())
 # 9876543210
-lst = []
-for i in range(1, 11):
-    for combo in combinations(range(10), i):
-        lst.append(int(''.join(list(map(str, combo))[::-1])))
-lst.sort()
-if len(lst) <= N:
+dap = []
+
+
+def DFS(num):
+    dap.append(num)
+    std = str(num)[0]
+    for i in range(int(std)+1, 10):
+        DFS(int(str(i)+str(num)))
+
+
+for i in range(10):
+    DFS(i)
+dap.sort()
+try:
+    print(dap[N])
+except:
     print(-1)
-else:
-    print(lst[N])
