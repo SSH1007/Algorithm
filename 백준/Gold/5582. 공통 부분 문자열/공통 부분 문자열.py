@@ -3,18 +3,19 @@ input = sys.stdin.readline
 
 
 def main():
-    first = input().rstrip()
-    second = input().rstrip()
+    first = ' ' + input().rstrip()
+    second = ' ' + input().rstrip()
     F, S = len(first), len(second)
-    maps = [[0]*(F+1) for _ in range(S+1)]
-
+    dp = [0]*F
     dap = 0
-    for s in range(1, S+1):
-        for f in range(1, F+1):
-            if first[f-1] == second[s-1]:
-                maps[s][f] = maps[s-1][f-1]+1
-                dap = max(dap, maps[s][f])
 
+    for s in range(1, S):
+        tmp = [0]*F
+        for f in range(1, F):
+            if first[f] == second[s]:
+                tmp[f] = dp[f-1]+1
+                dap = max(dap, tmp[f])
+        dp = tmp[:]
     print(dap)
 
 
