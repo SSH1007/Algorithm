@@ -32,25 +32,22 @@ for _ in range(M):
         # 영역 넘어섰을 때 처리
         c_r = (c_r+N) % N
         c_c = (c_c+N) % N
+        # 구름에서 비가 내려 바구니마다 1씩 증가,
+        # 구름이 이동한 위치 체크, 저장
         info[c_r][c_c] += 1
         visited[c_r][c_c] = 1
         moved.append((c_r, c_c))
+    # 구름이 이동한 위치에서 물복사버그 마법 시전
     for c_r, c_c in moved:
-        dap = magic(c_r, c_c)
-        # print('마법:', dap, '위치', c_r, c_c)
-        info[c_r][c_c] += dap
-    # for v in visited:
-    #     print(v)
+        info[c_r][c_c] += magic(c_r, c_c)
+
+    # 5번 과정 실시
     for i in range(N):
         for j in range(N):
             if info[i][j] >= 2 and not visited[i][j]:
                 clouds.append((i, j))
                 info[i][j] -= 2
 
-    # for inf in info:
-    #     print(inf)
-    # print(clouds)
-    # print('~~~~~~~~~')
 dap = 0
 for i in info:
     dap += sum(i)
