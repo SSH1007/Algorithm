@@ -1,3 +1,5 @@
+# 11000번 강의실 배정 -> 정렬, 그리디, 우선순위 큐
+# : imos인줄 알고 풀었는데 종료시간 최대가 10^9이라 그런지 메모리 초과 났음
 import sys
 input = lambda: sys.stdin.readline().rstrip()
 import heapq
