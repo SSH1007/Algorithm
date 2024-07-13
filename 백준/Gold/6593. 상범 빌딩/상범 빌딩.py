@@ -21,6 +21,7 @@ def main():
         end = []
         visited = [[[-1]*C for _ in range(R)] for _ in range(L)]
         q = deque()
+        # 시작점, 끝점 체크
         for l in range(L):
             for r in range(R):
                 for c in range(C):
@@ -42,9 +43,7 @@ def main():
                         if visited[nz][nr][nc] == -1:
                             visited[nz][nr][nc] = visited[z][y][x] + 1
                             q.append((nz, nr, nc))
-        # for visit in visited:
-        #     for v in visit:
-        #         print(v)
+       
         dap = visited[end[0]][end[1]][end[2]]
         if dap == -1:
             print('Trapped!')
