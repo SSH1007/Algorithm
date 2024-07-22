@@ -5,17 +5,10 @@ input = lambda: sys.stdin.readline().rstrip()
 def main():
     dap = 0
     N = int(input())
-    lst = [[] for _ in range(N)]
-    tree = list(map(int, input().split()))
-    for n in range(N):
-        lst[n].append(tree[n])
-    grow = list(map(int, input().split()))
-    for n in range(N):
-        lst[n].append(grow[n])
-
-    lst.sort(key=lambda x:x[1])
-    for n in range(N):
-        dap += lst[n][0]+(lst[n][1]*n)
+    dap += sum(list(map(int, input().split())))
+    grow = sorted(list(map(int, input().split())))
+    for i in range(1, N):
+        dap += grow[i]*i
     print(dap)
 
 
