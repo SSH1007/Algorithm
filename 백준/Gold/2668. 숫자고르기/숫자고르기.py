@@ -11,11 +11,15 @@ def main():
 
     def DFS(start, node):
         visited[node] = 1
-        for next in lst[node]:
-            if visited[next] and next == start:
-                dap.append(next)
-            elif not visited[next]:
-                DFS(start, next)
+        stack = [node]
+        while stack:
+            v = stack.pop()
+            for next in lst[v]:
+                if visited[next] and next == start:
+                    dap.append(next)
+                elif not visited[next]:
+                    stack.append(next)
+                    visited[next] = 1
 
     dap = []
     for i in range(1, N+1):
