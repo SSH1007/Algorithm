@@ -4,33 +4,26 @@ input = lambda: sys.stdin.readline().rstrip()
 
 def main():
     N = int(input())
-    lst = [0]*(N+1)
+    lst = [[] for _ in range(N+1)]
     for n in range(1, N+1):
-        v = int(input())
-        lst[n] = v
-    visited = [0]*(N+1)
-    # 시작점으로 다시 돌아오면 조건을 만족시키는 정수 집합이 된다
+        lst[int(input())].append(n)
+    # 시작점으로 다시 돌아오면(사이클) 조건을 만족시키는 정수 집합이 된다
 
     def DFS(start, node):
-        if lst[node] >= len(lst):
-            return
-        if visited[node]:
-            if start == node:
-                dap.append(node)
-                return
-            else:
-                return
         visited[node] = 1
-        DFS(start, lst[node])
-        visited[node] = 0
+        for next in lst[node]:
+            if visited[next] and next == start:
+                dap.append(next)
+            elif not visited[next]:
+                DFS(start, next)
 
     dap = []
     for i in range(1, N+1):
-        if not visited[i]:
-            DFS(i, i)
+        visited = [0]*(N+1)
+        DFS(i, i)
 
     print(len(dap))
-    for d in dap:
+    for d in sorted(dap):
         print(d)
 
 
