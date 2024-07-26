@@ -1,31 +1,23 @@
 import sys
 input = lambda: sys.stdin.readline().rstrip()
+from itertools import combinations
 
 
 def main():
     # 정보 입력 & 선생님 위치 파악
     N = int(input())
     maps = [list(input().split()) for _ in range(N)]
+    space = []
     teacher = []
     for i in range(N):
         for j in range(N):
-            if maps[i][j] == 'T':
+            if maps[i][j] == 'X':
+                space.append((i, j))
+            elif maps[i][j] == 'T':
                 teacher.append((i, j))
 
-    # 장애물이 3개가 되면 감시 체크, 아니면 3개가 될 때까지 백트래킹
-    def backTrack(cnt):
-        if cnt == 3:
-            if check():
-                print('YES')
-                exit(0)
-            else:
-                return
-        for i in range(N):
-            for j in range(N):
-                if maps[i][j] == 'X':
-                    maps[i][j] = 'O'
-                    backTrack(cnt+1)
-                    maps[i][j] = 'X'
+    # itertools 조합으로 장애물 설치
+    comb = list(combinations(space, 3))
 
     # 장애물 위치에 따른 감시 회피 여부 판별
     dr = [0, 1, 0, -1]
@@ -48,7 +40,16 @@ def main():
         # 모든 선생님의 감시에서 벗어남
         return True
 
-    backTrack(0)
+    for obstacle in comb:
+        for o_r, o_c in obstacle:
+            maps[o_r][o_c] = 'O'
+
+        if check():
+            print('YES')
+            exit(0)
+
+        for o_r, o_c in obstacle:
+            maps[o_r][o_c] = 'X'
     print('NO')
 
 
