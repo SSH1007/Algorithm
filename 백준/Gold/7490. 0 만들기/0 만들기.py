@@ -8,23 +8,24 @@ def main():
         N = int(input())
         s = set()
 
-        def rec(v, st):
-            if v == N:
-                if eval(st.replace(' ', '')) == 0:
-                    s.add(st)
+        # calc = 0: ' ', 1: '+', -1: '-'
+        def rec(current, calc, nextNum, term, stR):
+            if term == N:
+                # current = 현재까지의 연산값
+                current += calc*nextNum
+                if current == 0:
+                    s.add(stR)
                 return
+            # nextNum = 다음에 계산할 수
+            rec(current,              calc, nextNum*10+(term+1), term+1,  stR+' '+str(term+1))
+            rec(current+calc*nextNum, 1,     term+1,             term+1,  stR+'+'+str(term+1))
+            rec(current+calc*nextNum, -1,    term+1,             term+1,  stR+'-'+str(term+1))
 
-            v += 1
-
-            rec(v, st+' '+str(v))
-            rec(v, st+'+'+str(v))
-            rec(v, st+'-'+str(v))
-
-        rec(1, "1")
-        if t != 0:
-            print()
-        for f in sorted(list(s)):
-            print(f)
+        # 0부터 시작하여 1~7항을 계산한다
+        rec(0, 1, 1, 1, '1')
+        for l in sorted(list(s)):
+            print(l)
+        print()
 
 
 if __name__ == '__main__':
