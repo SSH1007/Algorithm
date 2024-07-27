@@ -8,7 +8,8 @@ def main():
     M = int(input())
     boxes = sorted(list(map(int, input().split())))
     visited = [0]*M
-    # print(boxes)
+
+    # 박스를 크레인마다 분배. 분배 안 된 박스는 visited에 0으로 체크
     lst = [[] for _ in range(N)]
     cIdx, bIdx = 0, 0
     while cIdx < N:
@@ -18,12 +19,11 @@ def main():
                 visited[b] = 1
             else:
                 bIdx = b
-                # print(bIdx)
                 break
         cIdx += 1
-    # print(lst)
-    dap = 0
 
+    # 가벼운 박스는 무게 제한이 큰 크레인에게 옮길 수 있음
+    dap = 0
     while 1:
         dap += 1
         for n in range(N-1, -1, -1):
@@ -34,7 +34,6 @@ def main():
                     if lst[m]:
                         lst[m].pop()
                         break
-        # print(lst)
         tmp = 0
         for n in range(N):
             tmp += len(lst[n])
@@ -42,6 +41,7 @@ def main():
             break
     if sum(visited) == M:
         print(dap)
+    # 혹시 남은 박스가 있다면 -1 출력
     else:
         print(-1)
 
