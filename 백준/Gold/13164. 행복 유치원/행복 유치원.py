@@ -1,6 +1,5 @@
 import sys
 input = lambda: sys.stdin.readline().rstrip()
-import heapq
 
 
 def main():
@@ -17,15 +16,13 @@ def main():
     # k=1: 1,3,5,6,10 => 9
     # ∴ 가장 큰 값을 계속 빼주면 된다
 
-    # heapq를 사용. 작은 값부터 빼는 최소힙이므로
-    # -1을 곱해서 절대값이 큰놈부터 나오게 한다.
-    hq = []
+    cha = []
     for i in range(1, N):
-        hq.append(-1 * (kids[i]-kids[i-1]))
-    heapq.heapify(hq)
+        cha.append(kids[i]-kids[i-1])
+    cha.sort()
     for _ in range(K-1):
-        heapq.heappop(hq)
-    print(sum(hq)*-1)
+        cha.pop()
+    print(sum(cha))
 
 
 if __name__ == '__main__':
