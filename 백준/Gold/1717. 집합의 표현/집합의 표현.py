@@ -5,6 +5,7 @@ input = lambda: sys.stdin.readline().rstrip()
 def main():
     n, m = map(int, input().split())
     parent = [i for i in range(n+1)]
+    height = [1]*(n+1)
 
     def find(x):
         if parent[x] == x:
@@ -12,12 +13,17 @@ def main():
         parent[x] = find(parent[x])
         return parent[x]
 
-    def merge(x, y):
+    def union(x, y):
         x = find(x)
         y = find(y)
         if x == y:
             return
-        parent[y] = x
+        if height[x] > height[y]:
+            parent[y] = x
+            height[x] += height[y]
+        else:
+            parent[x] = y
+            height[y] += height[x]
 
     def isUnion(x, y):
         x = find(x)
@@ -29,7 +35,7 @@ def main():
     for _ in range(m):
         c, a, b = map(int, input().split())
         if c == 0:
-            merge(a, b)
+            union(a, b)
         else:
             if isUnion(a, b):
                 print('YES')
