@@ -1,31 +1,31 @@
 import sys
 input = lambda: sys.stdin.readline().rstrip()
-from collections import deque
+
+
+def find(parent, x):
+    if parent[x] != x:
+        parent[x] = find(parent, parent[x])
+    return parent[x]
+
+
+def union(parent, rank, x, y):
+    rootX = find(parent, x)
+    rootY = find(parent, y)
+    if rootX != rootY:
+        # 높이(랭크)가 더 높은 루트를 다른 루트의 부모로 설정
+        if rank[rootX] > rank[rootY]:
+            parent[rootY] = rootX
+        elif rank[rootX] < rank[rootY]:
+            parent[rootX] = rootY
+        # 같다면 임의의 루트를 부모로 설정하고 해당 루트의 랭크 증가
+        else:
+            parent[rootY] = rootX
+            rank[rootX] += 1
 
 
 def main():
     dr = [-1, 0, 0, 1]
     dc = [0, -1, 1, 0]
-
-    def find(r, c):
-        if parent[r][c] == (r, c):
-            return r, c
-        parent[r][c] = find(parent[r][c][0], parent[r][c][1])
-        return parent[r][c]
-
-    def union(r1, c1, r2, c2):
-        rr, cc = find(r1, c1)
-        rrr, ccc = find(r2, c2)
-        if rr == rrr and cc == ccc:
-            return
-        parent[r2][c2] = (r1, c1)
-
-    def isUnion(r1, c1, r2, c2):
-        rr, cc = find(r1, c1)
-        rrr, ccc = find(r2, c2)
-        if rr == rrr and cc == ccc:
-            return True
-        return False
 
     T = int(input())
     for t in range(1, T+1):
@@ -34,13 +34,11 @@ def main():
         # 근접한 구역 중 보다 낮은 곳이 없을 경우, 이곳은 구멍이라 부른다
         # 물은 4방향 중 가장 낮은 곳으로 떨어진다
         # 모두 같으면 북서동남 순으로 가장 낮은 곳으로 떨어진다.
-        basin = [['' for _ in range(W)] for _ in range(H)]
 
-        parent = [[[] for _ in range(W)] for _ in range(H)]
+        parent = list(range(H*W))  # 2차원 배열에서 1차원 배열로
+        rank = [0]*(H*W)  # 유니온 파인드 성능 개선을 위한 rank 배열
+        # rank 값을 비교하여 작은 트리를 큰 트리 밑에 붙여 전체 트리의 높이 최소화!
 
-        for h in range(H):
-            for w in range(W):
-                parent[h][w] = (h, w)
         info = [list(map(int, input().split())) for _ in range(H)]
 
         for h in range(H):
@@ -53,32 +51,28 @@ def main():
                         if tmp > info[nr][nc]:
                             tmp = info[nr][nc]
                             r, c = nr, nc
-                union(r, c, h, w)
+                if r != h or c != w:
+                    union(parent, rank, h*W+w, r*W+c)
+
+        basin_labels = {}
+        label_cnt = ord('a')
 
         for h in range(H):
             for w in range(W):
-                isUnion(h, w, parent[h][w][0], parent[h][w][1])
+                root = find(parent, h*W+w)
+                if root not in basin_labels:
+                    basin_labels[root] = chr(label_cnt)
+                    label_cnt += 1
 
-        cnt = 97
+        result = []
         for h in range(H):
+            row_result = []
             for w in range(W):
-                if basin[h][w] == '':
-                    q = deque([(h, w)])
-                    while q:
-                        r, c = q.popleft()
-                        basin[r][c] = chr(cnt)
-                        for i in range(4):
-                            nr = r + dr[i]
-                            nc = c + dc[i]
-                            if 0 <= nr < H and 0 <= nc < W:
-                                if basin[nr][nc] == '':
-                                    if parent[nr][nc] == parent[r][c]:
-                                        q.append((nr, nc))
-                    cnt += 1
+                row_result.append(basin_labels[find(parent, h*W+w)])
+            result.append(' '.join(row_result))
 
         print('Case #%d:' % t)
-        for b in basin:
-            print(' '.join(b))
+        print('\n'.join(result))
 
 
 if __name__ == '__main__':
