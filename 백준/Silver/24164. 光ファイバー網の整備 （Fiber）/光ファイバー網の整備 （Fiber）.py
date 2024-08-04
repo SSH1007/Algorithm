@@ -29,14 +29,12 @@ def main():
     for _ in range(m):
         a, b = map(int, input().split())
         union(parent, rank, a, b)
-
-    # 한번 더 돌려서 루트 노드 갱신
+        
     for i in range(1, n+1):
         find(parent, i)
-
-    unique_roots = len(set(find(parent, i) for i in range(1, n+1)))
-    # 0은 제외
-    print(unique_roots - 1)
+        
+    # 0 제외, 대다수의 루트 노드 제외
+    print(len(set(parent))-2)
 
 
 if __name__ == '__main__':
