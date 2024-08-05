@@ -31,15 +31,16 @@ def main():
         info = [list(map(int, input().split())) for _ in range(N)]
         for r in range(N):
             for c in range(N):
-                if r!=c:
+                if r < c:
                     if info[r][c]:
                         union(parent, r, c)
+
         dap = 0
         for p in parent:
             if p < 0:
                 dap += (abs(p)-1)
         print(dap)
 
-        
+
 if __name__ == '__main__':
     main()
