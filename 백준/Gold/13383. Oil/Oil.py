@@ -34,6 +34,7 @@ def main():
         rank = [0]*N
         for i in range(0, num*3, 3):
             x, y, z = tri[i], tri[i+1], tri[i+2]
+            # 각 정점에 연결된 노드(=차수)를 z만큼 더하기
             degree[x] += z
             degree[y] += z
             for _ in range(z):
@@ -46,13 +47,15 @@ def main():
         if len(root_set) > 1:
             result.append('no')
             continue
-
+        
+        # 무향 그래프일 경우, 차수가 홀수인 정점이 2개면 오일러 경로(모든 점 방문).
+        # 차수가 홀수인 정점이 0개면 오일러 회로(+ 시작점=도착점).
         odd_cnt = sum(1 for d in degree if d % 2 == 1)
         if odd_cnt == 0 or odd_cnt == 2:
             result.append('yes')
         else:
             result.append('no')
-            
+
     for r in result:
         print(r)
 
