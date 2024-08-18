@@ -5,23 +5,32 @@ input = lambda: sys.stdin.readline().rstrip()
 def main():
     N = int(input())
     M = int(input())
-    maps = [[0]*(N+1) for _ in range(N+1)]
+    s2b = [[] for _ in range(N+1)]
+    b2s = [[] for _ in range(N+1)]
     for _ in range(M):
         a, b = map(int, input().split())
-        maps[a][b] = 1    # a > b
-        maps[b][a] = -1   # b < a
+        s2b[b].append(a)
+        b2s[a].append(b)
 
-    for k in range(1, N+1):
-        for i in range(1, N+1):
-            for j in range(1, N+1):
-                # ex) 1 > 2 and 2 > 3 => 1 > 3
-                if maps[i][k] == 1 and maps[k][j] == 1:
-                    maps[i][j] = 1
-                if maps[i][k] == -1 and maps[k][j] == -1:
-                    maps[i][j] = -1
+    dap = [0]*(N+1)
 
-    for n in range(1, N+1):
-        print(maps[n][1:].count(0)-1)
+    def DFS(cur, lst):
+        dap[cur] += 1
+        visited[cur] = 1
+        for node in lst[cur]:
+            if not visited[node]:
+                visited[node] = 1
+                DFS(node, lst)
+
+    for i in range(1, N+1):
+        visited = [0]*(N+1)
+        DFS(i, s2b)
+
+        visited = [0]*(N+1)
+        DFS(i, b2s)
+
+    for i in range(1, N+1):
+        print(N+1-dap[i])
 
 
 if __name__ == '__main__':
