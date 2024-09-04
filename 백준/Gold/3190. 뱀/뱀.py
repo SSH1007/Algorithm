@@ -6,41 +6,51 @@ from collections import deque, defaultdict
 def main():
     dr = [0, -1, 0, 1]
     dc = [1, 0, -1, 0]
+
+    # 맵 크기, 뱀 위치, 몸통, 방향 초기화
     N = int(input())
-    maps = [[0]*N for _ in range(N)]
-    maps[0][0] = 1
+    r, c = 0, 0
+    snake = deque([(r, c)])
     way = 0
-    snake = deque([(0, 0)])
+
+    # 사과 위치 표시
     K = int(input())
+    maps = [[0]*N for _ in range(N)]
     apples = [list(map(int, input().split())) for _ in range(K)]
-    for r, c in apples:
-        maps[r-1][c-1] = 2
+    for y, x in apples:
+        maps[y-1][x-1] = 1
+
+    # 방향 변경 시간 기록
     L = int(input())
     move = defaultdict(str)
     for _ in range(L):
         X, C = input().split()
         X = int(X)
         move[X] = C
+
     t = 1
     while 1:
-        head = snake[0]
-        r, c = head
-        tail = snake.pop()
-        nr = r + dr[way]
-        nc = c + dc[way]
-        if 0 > nr or N <= nr or 0 > nc or N <= nc:
+        r += dr[way]
+        c += dc[way]
+
+        # 벽 충돌
+        if 0 > r or N <= r or 0 > c or N <= c:
             print(t)
             exit(0)
-        if maps[nr][nc] == 1:
+        # 자기자신 충돌
+        if (r, c) in snake:
             print(t)
             exit(0)
-        if maps[nr][nc] == 2:
-            maps[tail[0]][tail[1]] = 1
-            snake.append((tail[0], tail[1]))
+        # 사과가 있으면 사과를 먹는다
+        if maps[r][c] == 1:
+            maps[r][c] = 0
+        # 없으면 꼬리칸을 비워준다
         else:
-            maps[tail[0]][tail[1]] = 0
-        maps[nr][nc] = 1
-        snake.appendleft((nr, nc))
+            snake.pop()
+        # 이동한 칸에 머리가 위치
+        snake.appendleft((r, c))
+
+        # 방향 전환
         if move[t] == 'D':
             way -= 1
             if way < 0:
