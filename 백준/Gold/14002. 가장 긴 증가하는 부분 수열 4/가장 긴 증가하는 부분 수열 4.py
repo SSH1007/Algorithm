@@ -1,26 +1,38 @@
-# dp O(N^2)이므로 1000 이하에서 유효
+# 14002 : 가장 긴 증가하는 부분 수열 4 - bisect
 import sys
-input = sys.stdin.readline
+input = lambda: sys.stdin.readline().rstrip()
+from bisect import bisect_left
 
 
 def main():
     N = int(input())
     As = list(map(int, input().split()))
-    dp = [1]*N     # dp[i]는 As[i]를 마지막으로 하는 LIS의 길이
-    prev = [-1]*N  # 역추적용. LIS의 이전 원소의 인덱스 기록
+    # 최장 증가 부분 수열
+    LIS = []
+    # LIS 각 원소의 갱신 시 해당 원소가 위치했던 인덱스 목록
+    LIS_idx = []
+    # LIS 각 원소의 갱신 시 해당 원소가 위치했던 인덱스 바로 앞의 인덱스 목록(역추적용)
+    LIS_prev_idx = [-1]*N
 
-    for i in range(1, N):
-        for j in range(i):
-            if As[j] < As[i] and dp[i] < dp[j]+1:
-                dp[i] = dp[j]+1
-                prev[i] = j
+    for n in range(N):
+        idx = bisect_left(LIS, As[n])
+        if idx >= len(LIS):
+            LIS.append(As[n])
+        else:
+            LIS[idx] = As[n]
+
+        if idx > 0:
+            LIS_prev_idx[n] = LIS_idx[idx-1]
+        if idx >= len(LIS_idx):
+            LIS_idx.append(n)
+        else:
+            LIS_idx[idx] = n
 
     restore = []
-    # LIS 마지막 원소의 인덱스부터 역순으로 추적
-    idx = dp.index(max(dp))
+    idx = LIS_idx[-1]
     while idx != -1:
         restore.append(As[idx])
-        idx = prev[idx]
+        idx = LIS_prev_idx[idx]
     print(len(restore))
     print(*restore[::-1])
 
