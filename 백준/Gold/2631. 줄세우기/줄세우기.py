@@ -1,19 +1,16 @@
 import sys
 input = lambda: sys.stdin.readline().rstrip()
-from bisect import bisect_left
 
 
 def main():
     N = int(input())
     lst = [int(input()) for _ in range(N)]
-    LIS = [lst[0]]
+    dp = [1]*N
     for n in range(1, N):
-        if lst[n] > LIS[-1]:
-            LIS.append(lst[n])
-        else:
-            idx = bisect_left(LIS, lst[n])
-            LIS[idx] = lst[n]
-    print(N-len(LIS))
+        for i in range(n):
+            if lst[i] < lst[n] and dp[n] < dp[i]+1:
+                dp[n] = dp[i]+1
+    print(N-max(dp))
 
 
 if __name__ == '__main__':
