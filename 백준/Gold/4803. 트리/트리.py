@@ -8,7 +8,7 @@ def find(parent, x):
     return parent[x]
 
 
-def isUnion(parent, rank, x, y):
+def union(parent, rank, x, y):
     rootX = find(parent, x)
     rootY = find(parent, y)
     if rootX != rootY:
@@ -19,8 +19,6 @@ def isUnion(parent, rank, x, y):
         else:
             parent[rootY] = rootX
             rank[rootX] += 1
-        return False
-    return True
 
 
 def main():
@@ -31,12 +29,13 @@ def main():
             break
         parent = [i for i in range(n+1)]
         rank = [0]*(n+1)
-        cycle = set()
+        cycle = []
         for _ in range(m):
             s, e = map(int, input().split())
-            if isUnion(parent, rank, s, e):
-                cycle.add(s)
-                cycle.add(e)
+            if find(parent, s) != find(parent, e):
+                union(parent, rank, s, e)
+            else:
+                cycle.append(parent[s])
 
         for i in range(1, n+1):
             find(parent, i)
@@ -44,7 +43,7 @@ def main():
         S = set(parent)
         S.discard(0)
         for c in cycle:
-            S.discard(find(parent, c))
+            S.discard(c)
         if S:
             L = len(S)
             if L == 1:
