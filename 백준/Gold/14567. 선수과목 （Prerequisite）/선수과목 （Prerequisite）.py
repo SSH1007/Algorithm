@@ -1,6 +1,6 @@
 import sys
 input = lambda: sys.stdin.readline().rstrip()
-from queue import Queue
+from collections import deque
 
 
 def main():
@@ -15,16 +15,16 @@ def main():
         in_degree[B] += 1
         out_degree[A].append(B)
 
-    q = Queue()
+    q = deque()
     for n in range(1, N+1):
         if in_degree[n] == 0:
-            q.put(n)
-    while not q.empty():
-        cur = q.get()
+            q.append(n)
+    while q:
+        cur = q.popleft()
         for node in out_degree[cur]:
             in_degree[node] -= 1
             if in_degree[node] == 0:
-                q.put(node)
+                q.append(node)
                 dap[node] = max(dap[node], dap[cur]+1)
     print(*dap[1:])
 
