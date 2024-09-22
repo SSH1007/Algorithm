@@ -36,13 +36,7 @@ def main():
                 in_degree[node][1] /= 2
 
     heritor = [input() for _ in range(M)]
-    dap, blood = '', 0
-    for h in heritor:
-        if h in in_degree.keys():
-            if in_degree[h][1] > blood:
-                blood = in_degree[h][1]
-                dap = h
-    print(dap)
+    print(max(heritor, key=lambda x: in_degree.get(x, [0, 0])[1]))
 
 
 if __name__ == '__main__':
