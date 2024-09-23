@@ -11,10 +11,11 @@ def main():
     R, C = map(int, input().split())
     maps = [list(map(int, input().split())) for _ in range(R)]
     dap = 0
+    q = deque([(0, 0)])
+    visited = [[0]*C for _ in range(R)]
+    visited[0][0] = 1
     while sum([sum(m) for m in maps]) != 0:
-        q = deque([(0, 0)])
-        visited = [[0]*C for _ in range(R)]
-        visited[0][0] = 1
+        next_q = []
         while q:
             r, c = q.popleft()
             for i in range(4):
@@ -24,16 +25,14 @@ def main():
                     if not visited[nr][nc]:
                         if maps[nr][nc] != 0:
                             maps[nr][nc] += 1
+                            if maps[nr][nc] >= 3:
+                                next_q.append((nr, nc))
+                                visited[nr][nc] = 1
+                                maps[nr][nc] = 0
                         else:
                             q.append((nr, nc))
                             visited[nr][nc] = 1
-
-        for r in range(R):
-            for c in range(C):
-                if maps[r][c] >= 3:
-                    maps[r][c] = 0
-                elif maps[r][c] > 0:
-                    maps[r][c] = 1
+        q = deque(next_q)
         dap += 1
     print(dap)
 
