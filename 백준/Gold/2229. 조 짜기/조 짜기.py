@@ -9,7 +9,7 @@ def main():
     for i in range(N):
         minV, maxV = lst[i], lst[i]
         j = i-1
-        while j >= 0:
+        while j >= 0 and (maxV <= lst[j] or minV >= lst[j]):
             maxV, minV = max(maxV, lst[j]), min(minV, lst[j])
             dp[i] = max(dp[i], dp[j-1]+maxV-minV)
             j -= 1
