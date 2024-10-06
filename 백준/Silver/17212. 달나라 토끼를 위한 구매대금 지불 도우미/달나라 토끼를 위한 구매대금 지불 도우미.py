@@ -8,9 +8,8 @@ def main():
     dp = [inf]*(N+1)
     dp[0] = 0
     for coin in [1, 2, 5, 7]:
-        for n in range(1, N+1):
-            if n-coin >= 0:
-                dp[n] = min(dp[n], dp[n-coin]+1)
+        for n in range(coin, N+1):
+            dp[n] = min(dp[n], dp[n-coin]+1)
     print(dp[N])
 
 
