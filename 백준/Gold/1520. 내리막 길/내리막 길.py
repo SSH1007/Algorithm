@@ -1,5 +1,6 @@
 import sys
 input = sys.stdin.readline
+sys.setrecursionlimit(10**6)
 # 세로 크기 M, 가로 크기 N
 M, N = map(int, input().rstrip().split())
 maps = [list(map(int, input().rstrip().split())) for _ in range(M)]
