@@ -4,6 +4,7 @@ from collections import deque
 
 
 def main():
+    inf = float('inf')
     R, C = map(int, input().split())
     # .: 빈 곳, *: 물, X: 바위
     # D: 비버, S: 고슴도치
@@ -20,8 +21,8 @@ def main():
     visited = [[-1]*C for _ in range(R)]
     # 짐승 좌표 초기화
     D, S = [0, 0], [0, 0]
-    # 물 좌표들 기록
-    water = deque()
+    # 물 좌표들은 해시에 기록
+    water = dict()
     for r in range(R):
         for c in range(C):
             if maps[r][c] == 'D':
@@ -29,15 +30,13 @@ def main():
             elif maps[r][c] == 'S':
                 S = [r, c]
             elif maps[r][c] == '*':
-                water.append((r, c))
+                water[(r, c)] = 1
 
     visited[S[0]][S[1]] = 0
     q = deque([(S)])
     while q:
-
-        L = len(water)
-        for _ in range(L):
-            w = water.popleft()
+        flood = dict()
+        for w in water:
             w_r, w_c = w[0], w[1]
             for i in range(4):
                 w_nr = w_r + dr[i]
@@ -45,8 +44,9 @@ def main():
                 if 0 <= w_nr < R and 0 <= w_nc < C:
                     if maps[w_nr][w_nc] == '.':
                         maps[w_nr][w_nc] = '*'
-                        water.append((w_nr, w_nc))
-
+                        flood[(w_nr, w_nc)] = 1
+        water = flood
+        
         L = len(q)
         for _ in range(L):
             r, c = q.popleft()
@@ -63,7 +63,6 @@ def main():
         print('KAKTUS')
     else:
         print(visited[D[0]][D[1]])
-
 
 if __name__ == '__main__':
     main()
