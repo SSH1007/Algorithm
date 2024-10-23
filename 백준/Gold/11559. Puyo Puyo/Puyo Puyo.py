@@ -11,15 +11,7 @@ def main():
     maps = [list(input()) for _ in range(12)]
     dap = 0
     while 1:
-        # 매번 돌면서 맨 아래에 뿌요가 있는지 확인
-        bottomCnt = 0
-        for i in range(6):
-            if maps[11][i] != '.':
-                bottomCnt += 1
-        # 밑에 아무것도 없으면 종료
-        if bottomCnt == 0:
-            break
-
+        # 4개씩 붙어있는 뿌요 찾기
         burstDic = dict()
         for i in range(11, -1, -1):
             for j in range(6):
