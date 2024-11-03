@@ -16,8 +16,12 @@ def Back(depth, score):
         if answer[len(tmp)-1] == i:
             Back(depth + 1, score+1)
         else:
+            if len(tmp) - score > 5:
+                tmp.pop()
+                continue
             Back(depth + 1, score)
         tmp.pop()
+
 
 Back(0, 0)
 print(dap)
