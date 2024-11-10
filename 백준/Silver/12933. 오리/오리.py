@@ -10,7 +10,7 @@ def main():
         print(-1)
         exit()
 
-    dap = 0
+    dap, cnt = 0, 0
     quack = 'quack'
     # 일단 최대한 돌리고 조건 따져서 종료
     for _ in range(len(mixed)//5):
@@ -22,10 +22,11 @@ def main():
                 if mixed[i] == 'k':
                     idx = 0
                 mixed[i] = '_'
+                cnt += 1
         dap += 1
-        if mixed.count('_') == len(mixed):
+        if cnt == len(mixed):
             break
-    if mixed.count('_') == len(mixed):
+    if cnt == len(mixed):
         print(dap)
     else:
         print(-1)
