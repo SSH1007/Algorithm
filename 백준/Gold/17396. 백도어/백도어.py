@@ -15,18 +15,20 @@ def dijkstra(start):
 
         for next, cost in graph[cur]:
             if distance[next] > dist + cost:
-                if As[next] == 0 or next == N-1:
-                    distance[next] = dist + cost
-                    h.heappush(hq, (dist + cost, next))
+                distance[next] = dist + cost
+                h.heappush(hq, (dist + cost, next))
 
 
 N, M = map(int, input().split())
 As = list(map(int, input().split()))
+As[-1] = 0
 graph = [[] for _ in range(N)]
 inf = float('inf')
 distance = [inf]*N
 for _ in range(M):
     a, b, t = map(int, input().split())
+    if As[a] or As[b]:
+        continue
     graph[a].append((b, t))
     graph[b].append((a, t))
 
