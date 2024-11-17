@@ -12,10 +12,12 @@ def main():
         for c in range(N):
             if r+1 < N:
                 tmp = dp[r][c] + (0 if maps[r][c] > maps[r+1][c] else maps[r+1][c]-maps[r][c]+1)
-                dp[r+1][c] = min(dp[r+1][c], tmp)
+                if dp[r+1][c] > tmp:
+                    dp[r+1][c] = tmp
             if c+1 < N:
                 tmp = dp[r][c] + (0 if maps[r][c] > maps[r][c+1] else maps[r][c+1]-maps[r][c]+1)
-                dp[r][c+1] = min(dp[r][c+1], tmp)
+                if dp[r][c+1] > tmp:
+                    dp[r][c+1] = tmp
     print(dp[N-1][N-1])
 
 
