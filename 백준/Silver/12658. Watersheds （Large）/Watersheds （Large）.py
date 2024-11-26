@@ -14,9 +14,9 @@ def union(parent, rank, x, y):
     if rootX != rootY:
         # 높이(랭크)가 더 높은 루트를 다른 루트의 부모로 설정
         if rank[rootX] > rank[rootY]:
-            parent[rootY] = rootX
-        elif rank[rootX] < rank[rootY]:
             parent[rootX] = rootY
+        elif rank[rootX] < rank[rootY]:
+            parent[rootY] = rootX
         # 같다면 임의의 루트를 부모로 설정하고 해당 루트의 랭크 증가
         else:
             parent[rootY] = rootX
