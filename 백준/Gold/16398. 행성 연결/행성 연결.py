@@ -1,28 +1,37 @@
 import sys
 input = lambda: sys.stdin.readline().rstrip()
-import heapq
+sys.setrecursionlimit(10**6)
+
+
+def find(x):
+    if parent[x] != x:
+        parent[x] = find(parent[x])
+    return parent[x]
+
+
+def union(x, y):
+    rootX = find(x)
+    rootY = find(y)
+    if rootX != rootY:
+        if rootX > rootY:
+            parent[rootY] = rootX
+        else:
+            parent[rootX] = rootY
+        return True
+    return False
 
 
 N = int(input())
 matrix = [list(map(int, input().split())) for _ in range(N)]
-
-hq = []
-visit = set()
-# (0, 0)부터 탐색하도록 하기 위해 비용 0, r=0으로 hq에 삽입
-heapq.heappush(hq, (0, 0))
-# 행렬 형태에선 시작점 방문은 체크하지 않는 점에 주의
+parent = [i for i in range(N)]
+graph = []
+for r in range(N):
+    for c in range(r+1, N):
+        graph.append((matrix[r][c], r, c))
+graph.sort()
 
 dap = 0
-while len(visit) < N:
-    cost, r = heapq.heappop(hq)
-
-    if r in visit:
-        continue
-
-    dap += cost
-    visit.add(r)
-    for c in range(N):
-        # matrix[r][c]가 비용, c가 노드 역할
-        if matrix[r][c] and c not in visit:
-            heapq.heappush(hq, (matrix[r][c], c))
+for cost, A, B in graph:
+    if union(A, B):
+        dap += cost
 print(dap)
