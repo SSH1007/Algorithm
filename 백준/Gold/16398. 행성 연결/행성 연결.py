@@ -1,6 +1,5 @@
 import sys
 input = lambda: sys.stdin.readline().rstrip()
-sys.setrecursionlimit(10**6)
 
 
 def find(x):
@@ -14,9 +13,9 @@ def union(x, y):
     rootY = find(y)
     if rootX != rootY:
         if rootX > rootY:
-            parent[rootY] = rootX
-        else:
             parent[rootX] = rootY
+        else:
+            parent[rootY] = rootX
         return True
     return False
 
@@ -26,12 +25,16 @@ matrix = [list(map(int, input().split())) for _ in range(N)]
 parent = [i for i in range(N)]
 graph = []
 for r in range(N):
-    for c in range(r+1, N):
-        graph.append((matrix[r][c], r, c))
+    for c in range(N):
+        if r > c:
+            graph.append((matrix[r][c], r, c))
 graph.sort()
 
-dap = 0
+dap, cnt = 0, 0
 for cost, A, B in graph:
     if union(A, B):
         dap += cost
+        cnt += 1
+        if cnt == N-1:
+            break
 print(dap)
