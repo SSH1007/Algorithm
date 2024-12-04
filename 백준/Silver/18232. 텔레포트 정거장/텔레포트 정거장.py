@@ -13,17 +13,22 @@ for _ in range(M):
     graph[x].append(y)
     graph[y].append(x)
 
-q = deque([(S, 0)])
-while q:
-    now, sec = q.popleft()
-    if now == E:
-        print(sec)
-        break
-    for i in [-1, 1]:
-        if 1 <= now+i <= N and not visited[now+i]:
-            visited[now+i] = 1
-            q.append((now+i, sec+1))
-    for nxt in graph[now]:
-        if not visited[nxt]:
-            visited[nxt] = 1
-            q.append((nxt, sec+1))
+
+def BFS():
+    q = deque([(S, 0)])
+    while q:
+        now, sec = q.popleft()
+        if now == E:
+            print(sec)
+            break
+        for i in [-1, 1]:
+            if 1 <= now+i <= N and not visited[now+i]:
+                visited[now+i] = 1
+                q.append((now+i, sec+1))
+        for nxt in graph[now]:
+            if not visited[nxt]:
+                visited[nxt] = 1
+                q.append((nxt, sec+1))
+
+
+BFS()
