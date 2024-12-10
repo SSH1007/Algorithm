@@ -4,6 +4,7 @@ from collections import deque
 
 N, M = map(int, input().split())
 maps, lst = [], []
+visited = [[[[0]*M for _ in range(N)] for _ in range(M)] for _ in range(N)]
 for n in range(N):
     maps.append(input())
     for m in range(M):
@@ -36,7 +37,9 @@ def BFS():
                 if maps[nr2][nc2] == '#':
                     nr2 = r2
                     nc2 = c2
-                q.append((nr1, nc1, nr2, nc2, cnt+1))
+                if not visited[nr1][nc1][nr2][nc2]:
+                    q.append((nr1, nc1, nr2, nc2, cnt+1))
+                    visited[nr1][nc1][nr2][nc2] = 1
             elif 0 <= nr1 < N and 0 <= nc1 < M:
                 return cnt + 1
             elif 0 <= nr2 < N and 0 <= nc2 < M:
