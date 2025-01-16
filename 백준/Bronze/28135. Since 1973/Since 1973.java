@@ -10,14 +10,18 @@ public class Main {
             n += 1;
             c += 1;
             if (n == N){
-                System.out.println(c);
                 break;
             }
-            if (Integer.toString(n).contains("50")){
+            if (containFifty(Integer.toString(n))){
                 c += 1;
             }
         }
+        System.out.println(c);
 
+    }
+
+    public static boolean containFifty(String numStr){
+        return numStr.indexOf("50") != -1;
     }
 
 }
