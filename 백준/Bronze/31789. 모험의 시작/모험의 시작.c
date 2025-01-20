@@ -5,8 +5,8 @@ int main(void){
   scanf("%d", &N);
   scanf("%d %d", &X, &S);
   int dap = 0;
-  for (int i = 0; i <= N; i++){
-    int c, p;
+  int c, p;
+  for (int i = 0; i < N; i++){
     scanf("%d %d", &c, &p);
     if (c <= X && dap < p){
       dap = p;
