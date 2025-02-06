@@ -6,17 +6,16 @@ def main():
     T = int(input())
     for _ in range(T):
         L, R, S = map(int, input().split())
-        s, i = 1, 1
-        while 1:
-            if S == L or S == R:
-                break
-            if i%2:
-                S+=i
-            else:
-                S-=i
-            i += 1
-            s += 1
-        print(s)
+        LS, RS = abs(L-S), abs(R-S)
+        if S == R or S == L:
+            print(0)
+            continue
+        if LS > RS:
+            print(RS*2)
+        elif LS < RS:
+            print(LS*2+1)
+        else:
+            print(RS*2)
 
 
 if __name__ == '__main__':
