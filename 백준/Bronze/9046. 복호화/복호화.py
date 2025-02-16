@@ -6,22 +6,13 @@ def main():
     N = int(input())
     for _ in range(N):
         alpha = [0]*26
-        S = input()
+        S = input().replace(" ", "")
         for i in range(len(S)):
-            if S[i] != ' ':
-                alpha[ord(S[i])-97] += 1
-        cnt, maxN, dap = 0, 0, 0
-        for i in range(26):
-            if alpha[i] > maxN:
-                maxN = alpha[i]
-                dap = i
-        for i in range(26):
-            if maxN == alpha[i]:
-                cnt += 1
-        if cnt > 1:
-            print('?')
+            alpha[ord(S[i])-97] += 1
+        if alpha.count(max(alpha)) > 1:
+            print("?")
         else:
-            print(chr(dap+97))
+            print(chr(alpha.index(max(alpha))+97))
 
 
 if __name__ == '__main__':
