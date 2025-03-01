@@ -1,12 +1,13 @@
 #include <stdio.h>
-#include <string.h>  // for memset
 
 int main() {
     int N, M;
     scanf("%d %d", &N, &M);
 
     int friend[N];
-    memset(friend, 0, sizeof(friend));
+    for (int i = 0; i < N; i++) {
+        friend[i] = 0;
+    }
     int target[M];
     for (int i = 0; i < M; i++) {
         scanf("%d", &target[i]);
