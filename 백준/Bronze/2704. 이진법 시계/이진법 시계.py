@@ -3,18 +3,16 @@ input = lambda: sys.stdin.readline().rstrip()
 
 
 def B(n):
-    d = bin(n)[2:]
+    d = bin(int(n))[2:]
     return d.zfill(6)
+
 
 def main():
     N = int(input())
     for _ in range(N):
-        H, M, S = map(int, input().split(":"))
-        R = B(H) + B(M) + B(S)
-        C = ''
-        for i in range(6):
-            for j in range(i, 18, 6):
-                C += R[j]
+        H, M, S = map(B, input().split(":"))
+        R = H + M + S
+        C = "".join([h+m+s for h,m,s in zip(H, M, S)])
         print(C+' '+R)
 
 
