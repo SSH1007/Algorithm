@@ -9,20 +9,8 @@ def main():
             break
         else:
             N, P = map(int, C.split())
-            lst = []
-            for i in range(0, N//2, 2):
-                tmp = []
-                tmp.append(i+1)
-                tmp.append(i+2)
-                tmp.append(N-i-1)
-                tmp.append(N-i)
-                lst.append(tmp)
-            for l in lst:
-                if P in l:
-                    for p in l:
-                        if p != P:
-                            print(p, end=' ')
-            print()
+            n, p = N//2, (P+1)//2
+            print(*sorted({2*p-1, 2*p, 2*(n-p+1), 2*(n-p+1)-1}-{P}))
 
 
 if __name__ == '__main__':
