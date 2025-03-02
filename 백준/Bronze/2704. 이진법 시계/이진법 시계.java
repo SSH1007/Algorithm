@@ -22,11 +22,11 @@ public class Main {
             String S = B(Integer.parseInt(parts[2]));
             
             String R = H + M + S;
-            String C = "";
+            StringBuilder C = new StringBuilder(); 
             for (int j = 0; j < 6; j++) {
-                C += H.charAt(j) + "" + M.charAt(j) + "" + S.charAt(j);
+                C.append(H.charAt(j)).append(M.charAt(j)).append(S.charAt(j));
             }
-            System.out.println(C + " " + R);
+            System.out.println(C.toString() + " " + R);
         }
         sc.close();
     }
