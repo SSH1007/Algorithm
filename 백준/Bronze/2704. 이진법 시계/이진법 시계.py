@@ -3,14 +3,8 @@ input = lambda: sys.stdin.readline().rstrip()
 
 
 def B(n):
-    dap = ''
-    while n!=0:
-        dap = str(n%2) + dap
-        n//=2
-    for i in range(6-len(dap)):
-        dap = '0' + dap
-    return dap
-
+    d = bin(n)[2:]
+    return d.zfill(6)
 
 def main():
     N = int(input())
