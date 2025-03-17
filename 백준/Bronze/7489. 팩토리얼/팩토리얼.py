@@ -12,7 +12,7 @@ def main():
             while a%10==0:
                 a//=10
             a%=10000
-        print(str(a)[-1])
+        print(a%10)
 
 
 if __name__ == '__main__':
