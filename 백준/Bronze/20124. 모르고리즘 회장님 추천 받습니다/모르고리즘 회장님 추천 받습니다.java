@@ -1,13 +1,14 @@
+import java.io.*;
 import java.util.*;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int N = Integer.parseInt(sc.nextLine());
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int N = Integer.parseInt(br.readLine());
         List<Person> lst = new ArrayList<>();
         
         for (int i = 0; i < N; i++) {
-            String[] input = sc.nextLine().split(" ");
+            String[] input = br.readLine().split(" ");
             String name = input[0];
             int score = Integer.parseInt(input[1]);
             lst.add(new Person(name, score));
