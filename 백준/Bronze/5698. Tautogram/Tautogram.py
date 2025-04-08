@@ -11,7 +11,7 @@ def main():
         a = ''
         flag = True
         for l in lst:
-            if a == '' and a != l[0].upper():
+            if a == '':
                 a = l[0].upper()
             elif a != l[0].upper():
                 flag = False
