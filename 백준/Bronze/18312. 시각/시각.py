@@ -5,23 +5,18 @@ input = lambda: sys.stdin.readline().rstrip()
 def main():
     N, K = map(int, input().split())
     dap = 0
-    a, b, c = 0, 0, 0
-    while 1:
-        if c > 59:
-            c = 0
-            b += 1
-        if b > 59:
-            b = 0
-            a += 1
-        tmp = str(a*10000+b*100+c)
-        for i in range(6-len(tmp)):
-            tmp = '0' + tmp
-        if str(K) in tmp:
-            dap += 1
-        if a == N and b == 59 and c == 59:
-            print(dap)
-            break
-        c += 1
+    for i in range(N+1):
+        if K == i//10 or K == i%10:
+            dap += 3600
+            continue
+        for j in range(60):
+            if K == j//10 or K == j%10:
+                dap += 60
+                continue
+            for k in range(60):
+                if K == k//10 or K == k%10:
+                    dap += 1
+    print(dap)
 
 
 if __name__ == '__main__':
