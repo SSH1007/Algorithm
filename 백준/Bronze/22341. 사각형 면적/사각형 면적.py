@@ -8,10 +8,12 @@ def main():
     A, B = N, N
     for _ in range(C):
         X, Y = map(int, input().split())
+        if X >= A or Y >= B:
+            continue
         # 가로
-        horizonCut = (0 if X >= A else X)*B
+        horizonCut = X*B
         # 세로
-        verticalCut = (0 if Y >= B else Y)*A
+        verticalCut = Y*A
         if horizonCut >= verticalCut:
             A = X
         else:
