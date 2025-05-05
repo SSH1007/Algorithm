@@ -4,22 +4,18 @@ input = lambda: sys.stdin.readline().rstrip()
 
 def main():
     while 1:
-        lst = [0 for _ in range(10)]
         try:
-            N = int(input())
-            k = 1
+            N, k = int(input()), 1
+            check = 0
             while 1:
-                n = N*k
-                while n > 0:
-                    tmp = n % 10
-                    lst[tmp] = 1
-                    n //= 10
-                if sum(lst) == 10:
+                for n in str(N*k):
+                    check |= (1 << int(n))
+                if check == 1023:
                     print(k)
                     break
                 k += 1
         except:
-            break
+            exit(0)
 
 
 if __name__ == '__main__':
