@@ -9,10 +9,8 @@ def main():
     for t in range(1, M+1):
         A = -6*(t**4) + h*(t**3) + 2*(t**2) + t
         if A <= 0:
-            dap = t
+            print(f'The balloon first touches ground at hour: {t}')
             break
-    if dap > 0:
-        print(f'The balloon first touches ground at hour: {dap}')
     else:
         print('The balloon does not touch ground in the given time.')
 
