@@ -4,13 +4,13 @@ input = lambda: sys.stdin.readline().rstrip()
 
 def main():
     N = int(input())
-    lst = [0]*31
+    lst = [0]*32
     for _ in range(N):
         b, r = map(int, input().split())
-        for i in range(b-1, r-1):
+        for i in range(b, r):
             lst[i] += 1
     K = int(input())
-    for i in range(31):
+    for i in range(32):
         if lst[i] > K:
             print(0)
             return
