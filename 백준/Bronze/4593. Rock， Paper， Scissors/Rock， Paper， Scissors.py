@@ -3,28 +3,17 @@ input = lambda: sys.stdin.readline().rstrip()
 
 
 def main():
-    lst = []
     while 1:
-        S = input()
-        lst.append(S)
-        if len(lst)>1:
-            if lst[-1] == 'E' and S == 'E':
-                break
-    for i in range(len(lst)//2):
-        N = len(lst[2*i])
+        P_1 = input()
+        if P_1 == 'E':
+            break
+        P_2 = input()
+        win = {'R':'S', 'P':'R', 'S':'P'}
         a, b = 0, 0
-        for n in range(N):
-            if lst[2*i][n] == 'R' and lst[2*i+1][n] == 'S':
+        for p1, p2 in zip(P_1, P_2):
+            if win[p1] == p2:
                 a += 1
-            elif lst[2*i][n] == 'R' and lst[2*i+1][n] == 'P':
-                b += 1
-            elif lst[2*i][n] == 'S' and lst[2*i+1][n] == 'P':
-                a += 1
-            elif lst[2*i][n] == 'S' and lst[2*i+1][n] == 'R':
-                b += 1
-            elif lst[2*i][n] == 'P' and lst[2*i+1][n] == 'R':
-                a += 1
-            elif lst[2*i][n] == 'P' and lst[2*i+1][n] == 'S':
+            elif win[p2] == p1:
                 b += 1
         print(f'P1: {a}')
         print(f'P2: {b}')
