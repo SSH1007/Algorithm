@@ -1,20 +1,13 @@
-import sys
-input = lambda: sys.stdin.readline().rstrip()
-
-
-def main():
-    N = int(input())
-    lst = list(map(int, input().split()))
-    dap = N
-    for i in range(N):
-        for j in range(i+1, N):
-            tmp = sum(lst[i:j+1])/(j-i+1)
-            for k in range(i, j+1):
-                if lst[k] == tmp:
-                    dap += 1
-                    break
-    print(dap)
-
-
-if __name__ == '__main__':
-    main()
+<html>
+<head><title>504 Gateway Time-out</title></head>
+<body>
+<center><h1>504 Gateway Time-out</h1></center>
+<hr><center>nginx/1.22.1</center>
+</body>
+</html>
+<!-- a padding to disable MSIE and Chrome friendly error page -->
+<!-- a padding to disable MSIE and Chrome friendly error page -->
+<!-- a padding to disable MSIE and Chrome friendly error page -->
+<!-- a padding to disable MSIE and Chrome friendly error page -->
+<!-- a padding to disable MSIE and Chrome friendly error page -->
+<!-- a padding to disable MSIE and Chrome friendly error page -->
