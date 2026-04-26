@@ -1,0 +1,12 @@
+bb, ba = map(int, input().split())
+sb, sa = map(int, input().split())
+gb, ga = map(int, input().split())
+pb, pa = map(int, input().split())
+s, g, p = 0, 0, 0
+q = pa-pb
+w = ga-gb
+e = sa-sb
+s = q+w+e
+g = q+w
+p = q
+print(s, g, p, sep = '\n')
